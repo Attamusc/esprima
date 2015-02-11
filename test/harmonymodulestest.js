@@ -1776,8 +1776,6 @@ var modulesTestFixture = {
                     end: { line: 1, column: 11 }
                 }
             }, {
-                // FIXME: File as bug since - given the context - this should probably be registered
-                //       as a keyword and not an identifier
                 type: 'Identifier',
                 value: 'as',
                 range: [12, 14],
@@ -1897,8 +1895,6 @@ var modulesTestFixture = {
                     end: { line: 1, column: 11 }
                 }
             }, {
-                // FIXME: File as bug since - given the context - this should probably be registered
-                //       as a keyword and not an identifier
                 type: 'Identifier',
                 value: 'as',
                 range: [12, 14],
@@ -1951,318 +1947,810 @@ var modulesTestFixture = {
 
         // exports from
         'export * from "foo";': {
-            type: 'ExportDeclaration',
-            'default': false,
-            declaration: null,
-            specifiers: [{
-                type: 'ExportBatchSpecifier',
+            type: 'Program',
+            body: [{
+                type: 'ExportDeclaration',
+                'default': false,
+                declaration: null,
+                specifiers: [{
+                    type: 'ExportBatchSpecifier',
+                    range: [7, 8],
+                    loc: {
+                        start: { line: 1, column: 7 },
+                        end: { line: 1, column: 8 }
+                    }
+                }],
+                source: {
+                    type: 'ModuleSpecifier',
+                    value: 'foo',
+                    raw: '"foo"',
+                    range: [14, 19],
+                    loc: {
+                        start: { line: 1, column: 14 },
+                        end: { line: 1, column: 19 }
+                    }
+                },
+                range: [0, 20],
+                loc: {
+                    start: { line: 1, column: 0 },
+                    end: { line: 1, column: 20 }
+                }
+            }],
+            range: [0, 20],
+            loc: {
+                start: { line: 1, column: 0 },
+                end: { line: 1, column: 20 }
+            },
+            tokens: [{
+                type: 'Keyword',
+                value: 'export',
+                range: [0, 6],
+                loc: {
+                    start: { line: 1, column: 0 },
+                    end: { line: 1, column: 6 }
+                }
+            }, {
+                type: 'Punctuator',
+                value: '*',
                 range: [7, 8],
                 loc: {
                     start: { line: 1, column: 7 },
                     end: { line: 1, column: 8 }
                 }
-            }],
-            source: {
-                type: 'ModuleSpecifier',
-                value: 'foo',
-                raw: '"foo"',
+            }, {
+                type: 'Identifier',
+                value: 'from',
+                range: [9, 13],
+                loc: {
+                    start: { line: 1, column: 9 },
+                    end: { line: 1, column: 13 }
+                }
+            }, {
+                type: 'String',
+                value: '"foo"',
                 range: [14, 19],
                 loc: {
                     start: { line: 1, column: 14 },
                     end: { line: 1, column: 19 }
                 }
-            },
-            range: [0, 20],
-            loc: {
-                start: { line: 1, column: 0 },
-                end: { line: 1, column: 20 }
-            }
+            }, {
+                type: 'Punctuator',
+                value: ';',
+                range: [19, 20],
+                loc: {
+                    start: { line: 1, column: 19 },
+                    end: { line: 1, column: 20 }
+                }
+            }]
         },
         'export {foo} from "foo";': {
-            type: 'ExportDeclaration',
-            'default': false,
-            declaration: null,
-            specifiers: [{
-                type: 'ExportSpecifier',
-                id: {
-                    type: 'Identifier',
-                    name: 'foo',
+            type: 'Program',
+            body: [{
+                type: 'ExportDeclaration',
+                'default': false,
+                declaration: null,
+                specifiers: [{
+                    type: 'ExportSpecifier',
+                    id: {
+                        type: 'Identifier',
+                        name: 'foo',
+                        range: [8, 11],
+                        loc: {
+                            start: { line: 1, column: 8 },
+                            end: { line: 1, column: 11 }
+                        }
+                    },
+                    name: null,
                     range: [8, 11],
                     loc: {
                         start: { line: 1, column: 8 },
                         end: { line: 1, column: 11 }
                     }
+                }],
+                source: {
+                    type: 'ModuleSpecifier',
+                    value: 'foo',
+                    raw: '"foo"',
+                    range: [18, 23],
+                    loc: {
+                        start: { line: 1, column: 18 },
+                        end: { line: 1, column: 23 }
+                    }
                 },
-                name: null,
-                range: [8, 11],
+                range: [0, 24],
                 loc: {
-                    start: { line: 1, column: 8 },
-                    end: { line: 1, column: 11 }
+                    start: { line: 1, column: 0 },
+                    end: { line: 1, column: 24 }
                 }
             }],
-            source: {
-                type: 'ModuleSpecifier',
-                value: 'foo',
-                raw: '"foo"',
-                range: [18, 23],
-                loc: {
-                    start: { line: 1, column: 18 },
-                    end: { line: 1, column: 23 }
-                }
-            },
             range: [0, 24],
             loc: {
                 start: { line: 1, column: 0 },
                 end: { line: 1, column: 24 }
-            }
-        },
-        'export {foo, bar} from "foo";': {
-            type: 'ExportDeclaration',
-            'default': false,
-            declaration: null,
-            specifiers: [{
-                type: 'ExportSpecifier',
-                id: {
-                    type: 'Identifier',
-                    name: 'foo',
-                    range: [8, 11],
-                    loc: {
-                        start: { line: 1, column: 8 },
-                        end: { line: 1, column: 11 }
-                    }
-                },
-                name: null,
+            },
+            tokens: [{
+                type: 'Keyword',
+                value: 'export',
+                range: [0, 6],
+                loc: {
+                    start: { line: 1, column: 0 },
+                    end: { line: 1, column: 6 }
+                }
+            }, {
+                type: 'Punctuator',
+                value: '{',
+                range: [7, 8],
+                loc: {
+                    start: { line: 1, column: 7 },
+                    end: { line: 1, column: 8 }
+                }
+            }, {
+                type: 'Identifier',
+                value: 'foo',
                 range: [8, 11],
                 loc: {
                     start: { line: 1, column: 8 },
                     end: { line: 1, column: 11 }
                 }
             }, {
-                type: 'ExportSpecifier',
-                id: {
-                    type: 'Identifier',
-                    name: 'bar',
+                type: 'Punctuator',
+                value: '}',
+                range: [ 11, 12 ],
+                loc: {
+                    start: { line: 1, column: 11 },
+                    end: { line: 1, column: 12 }
+                }
+            }, {
+                type: 'Identifier',
+                value: 'from',
+                range: [ 13, 17 ],
+                loc: {
+                    start: { line: 1, column: 13 },
+                    end: { line: 1, column: 17 }
+                }
+            }, {
+                type: 'String',
+                value: '"foo"',
+                range: [ 18, 23 ],
+                loc: {
+                    start: { line: 1, column: 18 },
+                    end: { line: 1, column: 23 }
+                }
+            }, {
+                type: 'Punctuator',
+                value: ';',
+                range: [ 23, 24 ],
+                loc: {
+                    start: { line: 1, column: 23 },
+                    end: { line: 1, column: 24 }
+                }
+            }]
+        },
+        'export {foo, bar} from "foo";': {
+            type: 'Program',
+            body: [{
+                type: 'ExportDeclaration',
+                'default': false,
+                declaration: null,
+                specifiers: [{
+                    type: 'ExportSpecifier',
+                    id: {
+                        type: 'Identifier',
+                        name: 'foo',
+                        range: [8, 11],
+                        loc: {
+                            start: { line: 1, column: 8 },
+                            end: { line: 1, column: 11 }
+                        }
+                    },
+                    name: null,
+                    range: [8, 11],
+                    loc: {
+                        start: { line: 1, column: 8 },
+                        end: { line: 1, column: 11 }
+                    }
+                }, {
+                    type: 'ExportSpecifier',
+                    id: {
+                        type: 'Identifier',
+                        name: 'bar',
+                        range: [13, 16],
+                        loc: {
+                            start: { line: 1, column: 13 },
+                            end: { line: 1, column: 16 }
+                        }
+                    },
+                    name: null,
                     range: [13, 16],
                     loc: {
                         start: { line: 1, column: 13 },
                         end: { line: 1, column: 16 }
                     }
+                }],
+                source: {
+                    type: 'ModuleSpecifier',
+                    value: 'foo',
+                    raw: '"foo"',
+                    range: [23, 28],
+                    loc: {
+                        start: { line: 1, column: 23 },
+                        end: { line: 1, column: 28 }
+                    }
                 },
-                name: null,
+                range: [0, 29],
+                loc: {
+                    start: { line: 1, column: 0 },
+                    end: { line: 1, column: 29 }
+                }
+            }],
+            range: [0, 29],
+            loc: {
+                start: { line: 1, column: 0 },
+                end: { line: 1, column: 29 }
+            },
+            tokens: [{
+                type: 'Keyword',
+                value: 'export',
+                range: [0, 6],
+                loc: {
+                    start: { line: 1, column: 0 },
+                    end: { line: 1, column: 6 }
+                }
+            }, {
+                type: 'Punctuator',
+                value: '{',
+                range: [7, 8],
+                loc: {
+                    start: { line: 1, column: 7 },
+                    end: { line: 1, column: 8 }
+                }
+            }, {
+                type: 'Identifier',
+                value: 'foo',
+                range: [8, 11],
+                loc: {
+                    start: { line: 1, column: 8 },
+                    end: { line: 1, column: 11 }
+                }
+            }, {
+                type: 'Punctuator',
+                value: ',',
+                range: [11, 12],
+                loc: {
+                    start: { line: 1, column: 11 },
+                    end: { line: 1, column: 12 }
+                }
+            }, {
+                type: 'Identifier',
+                value: 'bar',
                 range: [13, 16],
                 loc: {
                     start: { line: 1, column: 13 },
                     end: { line: 1, column: 16 }
                 }
-            }],
-            source: {
-                type: 'ModuleSpecifier',
-                value: 'foo',
-                raw: '"foo"',
+            }, {
+                type: 'Punctuator',
+                value: '}',
+                range: [16, 17],
+                loc: {
+                    start: { line: 1, column: 16 },
+                    end: { line: 1, column: 17 }
+                }
+            }, {
+                type: 'Identifier',
+                value: 'from',
+                range: [18, 22],
+                loc: {
+                    start: { line: 1, column: 18 },
+                    end: { line: 1, column: 22 }
+                }
+            }, {
+                type: 'String',
+                value: '"foo"',
                 range: [23, 28],
                 loc: {
                     start: { line: 1, column: 23 },
                     end: { line: 1, column: 28 }
                 }
-            },
-            range: [0, 29],
-            loc: {
-                start: { line: 1, column: 0 },
-                end: { line: 1, column: 29 }
-            }
+            }, {
+                type: 'Punctuator',
+                value: ';',
+                range: [28, 29],
+                loc: {
+                    start: { line: 1, column: 28 },
+                    end: { line: 1, column: 29 }
+                }
+            }]
         },
         'export {foo as bar} from "foo";': {
-            type: 'ExportDeclaration',
-            'default': false,
-            declaration: null,
-            specifiers: [{
-                type: 'ExportSpecifier',
-                id: {
-                    type: 'Identifier',
-                    name: 'foo',
-                    range: [8, 11],
+            type: 'Program',
+            body: [{
+                type: 'ExportDeclaration',
+                'default': false,
+                declaration: null,
+                specifiers: [{
+                    type: 'ExportSpecifier',
+                    id: {
+                        type: 'Identifier',
+                        name: 'foo',
+                        range: [8, 11],
+                        loc: {
+                            start: { line: 1, column: 8 },
+                            end: { line: 1, column: 11 }
+                        }
+                    },
+                    name: {
+                        type: 'Identifier',
+                        name: 'bar',
+                        range: [15, 18],
+                        loc: {
+                            start: { line: 1, column: 15 },
+                            end: { line: 1, column: 18 }
+                        }
+                    },
+                    range: [8, 18],
                     loc: {
                         start: { line: 1, column: 8 },
-                        end: { line: 1, column: 11 }
-                    }
-                },
-                name: {
-                    type: 'Identifier',
-                    name: 'bar',
-                    range: [15, 18],
-                    loc: {
-                        start: { line: 1, column: 15 },
                         end: { line: 1, column: 18 }
                     }
+                }],
+                source: {
+                    type: 'ModuleSpecifier',
+                    value: 'foo',
+                    raw: '"foo"',
+                    range: [25, 30],
+                    loc: {
+                        start: { line: 1, column: 25 },
+                        end: { line: 1, column: 30 }
+                    }
                 },
-                range: [8, 18],
+                range: [0, 31],
                 loc: {
-                    start: { line: 1, column: 8 },
-                    end: { line: 1, column: 18 }
+                    start: { line: 1, column: 0 },
+                    end: { line: 1, column: 31 }
                 }
             }],
-            source: {
-                type: 'ModuleSpecifier',
-                value: 'foo',
-                raw: '"foo"',
-                range: [25, 30],
-                loc: {
-                    start: { line: 1, column: 25 },
-                    end: { line: 1, column: 30 }
-                }
-            },
             range: [0, 31],
             loc: {
                 start: { line: 1, column: 0 },
                 end: { line: 1, column: 31 }
-            }
+            },
+            tokens: [{
+                type: 'Keyword',
+                value: 'export',
+                range: [0, 6],
+                loc: { start: { line: 1, column: 0 }, end: { line: 1, column: 6 } }
+            }, {
+                type: 'Punctuator',
+                value: '{',
+                range: [7, 8],
+                loc: { start: { line: 1, column: 7 }, end: { line: 1, column: 8 } }
+            }, {
+                type: 'Identifier',
+                value: 'foo',
+                range: [8, 11],
+                loc: { start: { line: 1, column: 8 }, end: { line: 1, column: 11 } }
+            }, {
+                type: 'Identifier',
+                value: 'as',
+                range: [12, 14],
+                loc: { start: { line: 1, column: 12 }, end: { line: 1, column: 14 } }
+            }, {
+                type: 'Identifier',
+                value: 'bar',
+                range: [15, 18],
+                loc: { start: { line: 1, column: 15 }, end: { line: 1, column: 18 } }
+            }, {
+                type: 'Punctuator',
+                value: '}',
+                range: [18, 19],
+                loc: { start: { line: 1, column: 18 }, end: { line: 1, column: 19 } }
+            }, {
+                type: 'Identifier',
+                value: 'from',
+                range: [20, 24],
+                loc: { start: { line: 1, column: 20 }, end: { line: 1, column: 24 } }
+            }, {
+                type: 'String',
+                value: '"foo"',
+                range: [25, 30],
+                loc: { start: { line: 1, column: 25 }, end: { line: 1, column: 30 } }
+            }, {
+                type: 'Punctuator',
+                value: ';',
+                range: [30, 31],
+                loc: { start: { line: 1, column: 30 }, end: { line: 1, column: 31 } }
+            }]
         },
         'export {foo as default} from "foo";': {
-            type: 'ExportDeclaration',
-            'default': false,
-            declaration: null,
-            specifiers: [{
-                type: 'ExportSpecifier',
-                id: {
-                    type: 'Identifier',
-                    name: 'foo',
-                    range: [8, 11],
+            type: 'Program',
+            body: [{
+                type: 'ExportDeclaration',
+                'default': false,
+                declaration: null,
+                specifiers: [{
+                    type: 'ExportSpecifier',
+                    id: {
+                        type: 'Identifier',
+                        name: 'foo',
+                        range: [8, 11],
+                        loc: {
+                            start: { line: 1, column: 8 },
+                            end: { line: 1, column: 11 }
+                        }
+                    },
+                    name: {
+                        type: 'Identifier',
+                        name: 'default',
+                        range: [15, 22],
+                        loc: {
+                            start: { line: 1, column: 15 },
+                            end: { line: 1, column: 22 }
+                        }
+                    },
+                    range: [8, 22],
                     loc: {
                         start: { line: 1, column: 8 },
-                        end: { line: 1, column: 11 }
-                    }
-                },
-                name: {
-                    type: 'Identifier',
-                    name: 'default',
-                    range: [15, 22],
-                    loc: {
-                        start: { line: 1, column: 15 },
                         end: { line: 1, column: 22 }
                     }
+                }],
+                source: {
+                    type: 'ModuleSpecifier',
+                    value: 'foo',
+                    raw: '"foo"',
+                    range: [29, 34],
+                    loc: {
+                        start: { line: 1, column: 29 },
+                        end: { line: 1, column: 34 }
+                    }
                 },
-                range: [8, 22],
+                range: [0, 35],
                 loc: {
-                    start: { line: 1, column: 8 },
-                    end: { line: 1, column: 22 }
+                    start: { line: 1, column: 0 },
+                    end: { line: 1, column: 35 }
                 }
             }],
-            source: {
-                type: 'ModuleSpecifier',
+            range: [0, 35],
+            loc: {
+                start: { line: 1, column: 0 },
+                end: { line: 1, column: 35 }
+            },
+            tokens: [{
+                type: 'Keyword',
+                value: 'export',
+                range: [0, 6],
+                loc: {
+                    start: { line: 1, column: 0 },
+                    end: { line: 1, column: 6 }
+                }
+            }, {
+                type: 'Punctuator',
+                value: '{',
+                range: [7, 8],
+                loc: {
+                    start: { line: 1, column: 7 },
+                    end: { line: 1, column: 8 }
+                }
+            }, {
+                type: 'Identifier',
                 value: 'foo',
-                raw: '"foo"',
+                range: [8, 11],
+                loc: {
+                    start: { line: 1, column: 8 },
+                    end: { line: 1, column: 11 }
+                }
+            }, {
+                type: 'Identifier',
+                value: 'as',
+                range: [12, 14],
+                loc: {
+                    start: { line: 1, column: 12 },
+                    end: { line: 1, column: 14 }
+                }
+            }, {
+                type: 'Keyword',
+                value: 'default',
+                range: [15, 22],
+                loc: {
+                    start: { line: 1, column: 15 },
+                    end: { line: 1, column: 22 }
+                }
+            }, {
+                type: 'Punctuator',
+                value: '}',
+                range: [22, 23],
+                loc: {
+                    start: { line: 1, column: 22 },
+                    end: { line: 1, column: 23 }
+                }
+            }, {
+                type: 'Identifier',
+                value: 'from',
+                range: [24, 28],
+                loc: {
+                    start: { line: 1, column: 24 },
+                    end: { line: 1, column: 28 }
+                }
+            }, {
+                type: 'String',
+                value: '"foo"',
                 range: [29, 34],
                 loc: {
                     start: { line: 1, column: 29 },
                     end: { line: 1, column: 34 }
                 }
-            },
-            range: [0, 35],
-            loc: {
-                start: { line: 1, column: 0 },
-                end: { line: 1, column: 35 }
-            }
+            }, {
+                type: 'Punctuator',
+                value: ';',
+                range: [34, 35],
+                loc: {
+                    start: { line: 1, column: 34 },
+                    end: { line: 1, column: 35 }
+                }
+            }]
         },
         'export {foo as default, bar} from "foo";': {
-            type: 'ExportDeclaration',
-            'default': false,
-            declaration: null,
-            specifiers: [{
-                type: 'ExportSpecifier',
-                id: {
-                    type: 'Identifier',
-                    name: 'foo',
-                    range: [8, 11],
+            type: 'Program',
+            body: [{
+                type: 'ExportDeclaration',
+                'default': false,
+                declaration: null,
+                specifiers: [{
+                    type: 'ExportSpecifier',
+                    id: {
+                        type: 'Identifier',
+                        name: 'foo',
+                        range: [8, 11],
+                        loc: {
+                            start: { line: 1, column: 8 },
+                            end: { line: 1, column: 11 }
+                        }
+                    },
+                    name: {
+                        type: 'Identifier',
+                        name: 'default',
+                        range: [15, 22],
+                        loc: {
+                            start: { line: 1, column: 15 },
+                            end: { line: 1, column: 22 }
+                        }
+                    },
+                    range: [8, 22],
                     loc: {
                         start: { line: 1, column: 8 },
-                        end: { line: 1, column: 11 }
-                    }
-                },
-                name: {
-                    type: 'Identifier',
-                    name: 'default',
-                    range: [15, 22],
-                    loc: {
-                        start: { line: 1, column: 15 },
                         end: { line: 1, column: 22 }
                     }
-                },
-                range: [8, 22],
-                loc: {
-                    start: { line: 1, column: 8 },
-                    end: { line: 1, column: 22 }
-                }
-            }, {
-                type: 'ExportSpecifier',
-                id: {
-                    type: 'Identifier',
-                    name: 'bar',
+                }, {
+                    type: 'ExportSpecifier',
+                    id: {
+                        type: 'Identifier',
+                        name: 'bar',
+                        range: [24, 27],
+                        loc: {
+                            start: { line: 1, column: 24 },
+                            end: { line: 1, column: 27 }
+                        }
+                    },
+                    name: null,
                     range: [24, 27],
                     loc: {
                         start: { line: 1, column: 24 },
                         end: { line: 1, column: 27 }
                     }
+                }],
+                source: {
+                    type: 'ModuleSpecifier',
+                    value: 'foo',
+                    raw: '"foo"',
+                    range: [34, 39],
+                    loc: {
+                        start: { line: 1, column: 34 },
+                        end: { line: 1, column: 39 }
+                    }
                 },
-                name: null,
+                range: [0, 40],
+                loc: {
+                    start: { line: 1, column: 0 },
+                    end: { line: 1, column: 40 }
+                }
+            }],
+            range: [0, 40],
+            loc: {
+                start: { line: 1, column: 0 },
+                end: { line: 1, column: 40 }
+            },
+            tokens: [{
+                type: 'Keyword',
+                value: 'export',
+                range: [0, 6],
+                loc: {
+                    start: { line: 1, column: 0 },
+                    end: { line: 1, column: 6 }
+                }
+            }, {
+                type: 'Punctuator',
+                value: '{',
+                range: [7, 8],
+                loc: {
+                    start: { line: 1, column: 7 },
+                    end: { line: 1, column: 8 }
+                }
+            }, {
+                type: 'Identifier',
+                value: 'foo',
+                range: [8, 11],
+                loc: {
+                    start: { line: 1, column: 8 },
+                    end: { line: 1, column: 11 }
+                }
+            }, {
+                type: 'Identifier',
+                value: 'as',
+                range: [12, 14],
+                loc: {
+                    start: { line: 1, column: 12 },
+                    end: { line: 1, column: 14 }
+                }
+            }, {
+                type: 'Keyword',
+                value: 'default',
+                range: [15, 22],
+                loc: {
+                    start: { line: 1, column: 15 },
+                    end: { line: 1, column: 22 }
+                }
+            }, {
+                type: 'Punctuator',
+                value: ',',
+                range: [22, 23],
+                loc: {
+                    start: { line: 1, column: 22 },
+                    end: { line: 1, column: 23 }
+                }
+            }, {
+                type: 'Identifier',
+                value: 'bar',
                 range: [24, 27],
                 loc: {
                     start: { line: 1, column: 24 },
                     end: { line: 1, column: 27 }
                 }
-            }],
-            source: {
-                type: 'ModuleSpecifier',
-                value: 'foo',
-                raw: '"foo"',
+            }, {
+                type: 'Punctuator',
+                value: '}',
+                range: [27, 28],
+                loc: {
+                    start: { line: 1, column: 27 },
+                    end: { line: 1, column: 28 }
+                }
+            }, {
+                type: 'Identifier',
+                value: 'from',
+                range: [29, 33],
+                loc: {
+                    start: { line: 1, column: 29 },
+                    end: { line: 1, column: 33 }
+                }
+            }, {
+                type: 'String',
+                value: '"foo"',
                 range: [34, 39],
                 loc: {
                     start: { line: 1, column: 34 },
                     end: { line: 1, column: 39 }
                 }
-            },
-            range: [0, 40],
-            loc: {
-                start: { line: 1, column: 0 },
-                end: { line: 1, column: 40 }
-            }
+            }, {
+                type: 'Punctuator',
+                value: ';',
+                range: [39, 40],
+                loc: {
+                    start: { line: 1, column: 39 },
+                    end: { line: 1, column: 40 }
+                }
+            }]
         },
         'export {default} from "foo";': {
-            type: 'ExportDeclaration',
-            'default': false,
-            declaration: null,
-            specifiers: [{
-                type: 'ExportSpecifier',
-                id: {
-                    type: 'Identifier',
-                    name: 'default',
+            type: 'Program',
+            body: [{
+                type: 'ExportDeclaration',
+                'default': false,
+                declaration: null,
+                specifiers: [{
+                    type: 'ExportSpecifier',
+                    id: {
+                        type: 'Identifier',
+                        name: 'default',
+                        range: [8, 15],
+                        loc: {
+                            start: { line: 1, column: 8 },
+                            end: { line: 1, column: 15 }
+                        }
+                    },
+                    name: null,
                     range: [8, 15],
                     loc: {
                         start: { line: 1, column: 8 },
                         end: { line: 1, column: 15 }
                     }
+                }],
+                source: {
+                    type: 'ModuleSpecifier',
+                    value: 'foo',
+                    raw: '"foo"',
+                    range: [22, 27],
+                    loc: {
+                        start: { line: 1, column: 22 },
+                        end: { line: 1, column: 27 }
+                    }
                 },
-                name: null,
+                range: [0, 28],
+                loc: {
+                    start: { line: 1, column: 0 },
+                    end: { line: 1, column: 28 }
+                }
+            }],
+            range: [0, 28],
+            loc: {
+                start: { line: 1, column: 0 },
+                end: { line: 1, column: 28 }
+            },
+            tokens: [{
+                type: 'Keyword',
+                value: 'export',
+                range: [0, 6],
+                loc: {
+                    start: { line: 1, column: 0 },
+                    end: { line: 1, column: 6 }
+                }
+            }, {
+                type: 'Punctuator',
+                value: '{',
+                range: [7, 8],
+                loc: {
+                    start: { line: 1, column: 7 },
+                    end: { line: 1, column: 8 }
+                }
+            }, {
+                type: 'Keyword',
+                value: 'default',
                 range: [8, 15],
                 loc: {
                     start: { line: 1, column: 8 },
                     end: { line: 1, column: 15 }
                 }
-            }],
-            source: {
-                type: 'ModuleSpecifier',
-                value: 'foo',
-                raw: '"foo"',
+            }, {
+                type: 'Punctuator',
+                value: '}',
+                range: [15, 16],
+                loc: {
+                    start: { line: 1, column: 15 },
+                    end: { line: 1, column: 16 }
+                }
+            }, {
+                type: 'Identifier',
+                value: 'from',
+                range: [17, 21],
+                loc: {
+                    start: { line: 1, column: 17 },
+                    end: { line: 1, column: 21 }
+                }
+            }, {
+                type: 'String',
+                value: '"foo"',
                 range: [22, 27],
                 loc: {
                     start: { line: 1, column: 22 },
                     end: { line: 1, column: 27 }
                 }
-            },
-            range: [0, 28],
-            loc: {
-                start: { line: 1, column: 0 },
-                end: { line: 1, column: 28 }
-            }
+            }, {
+                type: 'Punctuator',
+                value: ';',
+                range: [27, 28],
+                loc: {
+                    start: { line: 1, column: 27 },
+                    end: { line: 1, column: 28 }
+                }
+            }]
         },
 
         // default imports
